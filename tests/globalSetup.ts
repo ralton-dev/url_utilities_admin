@@ -11,7 +11,7 @@ import {
 } from 'testcontainers';
 
 const CORE_IMAGE =
-  process.env.URL_UTILITIES_IMAGE ?? 'ghcr.io/ralton-dev/url-utilities:v2.1.0';
+  process.env.URL_UTILITIES_IMAGE ?? 'ghcr.io/ralton-dev/url-utilities:v2.2.0';
 const ADMIN_API_KEY = 'test-admin-key';
 
 let network: StartedNetwork | undefined;
