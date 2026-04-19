@@ -102,6 +102,26 @@ make helm-install REPO=prod
 | `npm run lint`                  | ESLint                                              |
 | `npm run format` / `format:fix` | Prettier check / write                              |
 
+## Releasing
+
+Tag-driven. `.github/workflows/release.yml` fires on any `v*` tag push and publishes `ghcr.io/ralton-dev/url-utilities-admin:v<version>` (+ a `-<short-sha>` variant) to GHCR.
+
+```bash
+# 1. Bump Chart.yaml + values.yaml, create a release commit + annotated tag
+make bump-version VERSION_ARG=0.2.0
+
+# 2. Push the commit and the tag — release workflow takes it from there
+git push origin main --tags
+```
+
+The `main-protection` ruleset will flag this push as "bypassed" since the release commit doesn't come in via PR — the admin bypass actor allows it. A non-admin contributor would need to open a PR for the release commit, merge it, then tag `main` locally and push the tag separately (`git tag -a v0.2.0 -m v0.2.0 && git push origin v0.2.0`).
+
+After the workflow completes (~1 min), pin the new image tag in your `values-<env>.yaml` and roll out:
+
+```bash
+make helm-install REPO=prod
+```
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).
