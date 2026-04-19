@@ -93,14 +93,14 @@ make helm-install REPO=prod
 
 ## Scripts
 
-| Script                          | What it does                           |
-| ------------------------------- | -------------------------------------- |
-| `npm run dev`                   | tsx watch — hot-reload dev server      |
-| `npm run build`                 | tsc + copy views/ and public/ to dist/ |
-| `npm start`                     | Run the built server (`node dist/...`) |
-| `npm test`                      | Vitest (testcontainers: real Postgres + core image)    |
-| `npm run lint`                  | ESLint                                 |
-| `npm run format` / `format:fix` | Prettier check / write                 |
+| Script                          | What it does                                        |
+| ------------------------------- | --------------------------------------------------- |
+| `npm run dev`                   | tsx watch — hot-reload dev server                   |
+| `npm run build`                 | tsc + copy views/ and public/ to dist/              |
+| `npm start`                     | Run the built server (`node dist/...`)              |
+| `npm test`                      | Vitest (testcontainers: real Postgres + core image) |
+| `npm run lint`                  | ESLint                                              |
+| `npm run format` / `format:fix` | Prettier check / write                              |
 
 ## License
 
