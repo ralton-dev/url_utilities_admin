@@ -33,7 +33,7 @@ bump-version: ## Bump Chart.yaml + values.yaml and create annotated tag (VERSION
 	@sed -i.bak -E "s|(^  tag:).*|\1 'v$(VERSION_ARG)'|" $(CHART_VALUES)
 	@rm -f $(CHART_DIR)/Chart.yaml.bak $(CHART_VALUES).bak
 	@git add $(CHART_DIR)/Chart.yaml $(CHART_VALUES)
-	@git commit -m "chore: release v$(VERSION_ARG)"
+	@git commit --allow-empty -m "chore: release v$(VERSION_ARG)"
 	@git tag -a "v$(VERSION_ARG)" -m "v$(VERSION_ARG)"
 	@echo "Tagged v$(VERSION_ARG). Push with: git push origin main --tags"
 
