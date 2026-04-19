@@ -1,0 +1,52 @@
+<section class="page-header">
+  <h1><code class="alias"><%= item.alias %></code></h1>
+  <a class="button" href="/urls">← Back to list</a>
+</section>
+
+<dl class="meta">
+  <dt>Destination</dt>
+  <dd>
+    <a href="<%= item.url %>" target="_blank" rel="noopener"><%= item.url %></a>
+  </dd>
+  <dt>Clicks</dt>
+  <dd><%= item.count.toLocaleString() %></dd>
+  <dt>Created</dt>
+  <dd>
+    <time datetime="<%= item.createdAt %>"><%= new Date(item.createdAt).toLocaleString() %></time>
+  </dd>
+  <dt>Short path</dt>
+  <dd><code>/r/<%= item.alias %></code></dd>
+</dl>
+
+<section class="card">
+  <h2>Edit destination</h2>
+  <%- include('partials/_edit.ejs', { alias: item.alias, value: item.url, error: null, savedAt: null }) %>
+</section>
+
+<section class="card">
+  <h2>QR code</h2>
+  <div id="qr">
+    <%- include('partials/_qr.ejs', { qrCode: item.qrCode }) %>
+  </div>
+  <button
+    class="button"
+    hx-post="/urls/<%= item.alias %>/qr/regenerate"
+    hx-target="#qr"
+    hx-swap="innerHTML"
+  >
+    Regenerate QR
+  </button>
+</section>
+
+<section class="card danger">
+  <h2>Delete</h2>
+  <p>This removes the short link and its QR code. Links already shared will 404.</p>
+  <button
+    class="button danger"
+    hx-delete="/urls/<%= item.alias %>"
+    hx-confirm="Delete <%= item.alias %>?"
+    hx-on::after-request="if (event.detail.successful) window.location.href = '/urls'"
+  >
+    Delete
+  </button>
+</section>

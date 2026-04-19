@@ -1,0 +1,20 @@
+<section class="page-header">
+  <h1>New URL</h1>
+  <a class="button" href="/urls">← Back</a>
+</section>
+
+<form class="card" method="POST" action="/urls">
+  <label>
+    <span>Destination URL</span>
+    <input
+      type="url"
+      name="url"
+      value="<%= value %>"
+      placeholder="https://example.com/some/path"
+      required
+      autofocus
+    />
+  </label>
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+  <button type="submit" class="button primary">Create</button>
+</form>

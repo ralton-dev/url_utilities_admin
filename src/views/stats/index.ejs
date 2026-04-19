@@ -1,0 +1,38 @@
+<section class="page-header">
+  <h1>Stats</h1>
+</section>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <dt>Total URLs</dt>
+    <dd><%= totalUrls.toLocaleString() %></dd>
+  </div>
+  <div class="stat-card">
+    <dt>Total clicks</dt>
+    <dd><%= totalClicks.toLocaleString() %></dd>
+  </div>
+</div>
+
+<section>
+  <h2>Top URLs</h2>
+  <% if (topUrls.length === 0) { %>
+    <p class="empty">No clicks yet.</p>
+  <% } else { %>
+    <table class="urls">
+      <thead>
+        <tr><th>Alias</th><th>URL</th><th>Clicks</th></tr>
+      </thead>
+      <tbody>
+        <% topUrls.forEach(item => { %>
+          <tr>
+            <td><a href="/urls/<%= item.alias %>"><code><%= item.alias %></code></a></td>
+            <td class="url-cell">
+              <a href="<%= item.url %>" target="_blank" rel="noopener"><%= item.url %></a>
+            </td>
+            <td><%= item.count.toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</section>

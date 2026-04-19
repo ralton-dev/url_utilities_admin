@@ -1,0 +1,26 @@
+<tr id="url-<%= item.alias %>">
+  <td>
+    <a href="/urls/<%= item.alias %>"><code><%= item.alias %></code></a>
+  </td>
+  <td class="url-cell">
+    <a href="<%= item.url %>" target="_blank" rel="noopener" title="<%= item.url %>">
+      <%= item.url %>
+    </a>
+  </td>
+  <td><%= item.count.toLocaleString() %></td>
+  <td>
+    <time datetime="<%= item.createdAt %>">
+      <%= new Date(item.createdAt).toLocaleDateString() %>
+    </time>
+  </td>
+  <td class="actions">
+    <a class="button small" href="/urls/<%= item.alias %>">Open</a>
+    <button
+      class="button small danger"
+      hx-delete="/urls/<%= item.alias %>"
+      hx-confirm="Delete <%= item.alias %>?"
+      hx-target="#url-<%= item.alias %>"
+      hx-swap="outerHTML swap:0.3s"
+    >Delete</button>
+  </td>
+</tr>

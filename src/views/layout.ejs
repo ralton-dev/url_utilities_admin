@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= typeof title === 'string' ? title + ' — ' : '' %><%= appName %></title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <script src="/public/vendor/htmx.min.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/urls">url-utilities admin</a>
+      <nav>
+        <a href="/urls">URLs</a>
+        <a href="/urls/new">New</a>
+        <a href="/stats">Stats</a>
+      </nav>
+    </header>
+    <main class="container">
+      <%- body %>
+    </main>
+  </body>
+</html>

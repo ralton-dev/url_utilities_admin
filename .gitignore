@@ -1,0 +1,31 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# build output
+/dist
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+
+# local env files
+.env
+.env.local
+.env.*.local
+
+# typescript
+*.tsbuildinfo
+
+# ide
+.idea
+.vscode
+
+# helm per-instance values (may contain secrets)
+deploy/helm/*/values-*.yaml
+deploy/helm/*/sealed/

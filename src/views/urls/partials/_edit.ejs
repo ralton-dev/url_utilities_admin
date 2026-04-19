@@ -1,0 +1,15 @@
+<div id="edit-form" class="edit-box">
+  <form
+    hx-patch="/urls/<%= alias %>"
+    hx-target="#edit-form"
+    hx-swap="outerHTML"
+  >
+    <label>
+      <span>Destination URL</span>
+      <input type="url" name="url" value="<%= value %>" required />
+    </label>
+    <button type="submit" class="button primary">Save</button>
+  </form>
+  <% if (locals.error) { %><p class="error"><%= error %></p><% } %>
+  <% if (locals.savedAt) { %><p class="success">Saved <%= new Date(savedAt).toLocaleTimeString() %>.</p><% } %>
+</div>

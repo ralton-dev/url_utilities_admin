@@ -1,0 +1,40 @@
+<% if (items.length === 0) { %>
+  <p class="empty">No URLs match.</p>
+<% } else { %>
+  <table class="urls">
+    <thead>
+      <tr>
+        <th>Alias</th>
+        <th>URL</th>
+        <th>Clicks</th>
+        <th>Created</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.forEach(item => { %>
+        <%- include('_row.ejs', { item }) %>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <nav class="pagination" aria-label="Pagination">
+    <span class="page-info"><%= total.toLocaleString() %> total · page <%= page %> of <%= totalPages %></span>
+    <% if (prevHref) { %>
+      <a
+        href="/urls?<%= prevHref %>"
+        hx-get="/urls/partials/table?<%= prevHref %>"
+        hx-target="#url-list"
+        hx-push-url="/urls?<%= prevHref %>"
+      >← Prev</a>
+    <% } %>
+    <% if (nextHref) { %>
+      <a
+        href="/urls?<%= nextHref %>"
+        hx-get="/urls/partials/table?<%= nextHref %>"
+        hx-target="#url-list"
+        hx-push-url="/urls?<%= nextHref %>"
+      >Next →</a>
+    <% } %>
+  </nav>
+<% } %>

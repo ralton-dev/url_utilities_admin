@@ -1,0 +1,41 @@
+<section class="page-header">
+  <h1>URLs</h1>
+  <a class="button primary" href="/urls/new">+ New URL</a>
+</section>
+
+<form
+  class="filters"
+  hx-get="/urls/partials/table"
+  hx-target="#url-list"
+  hx-trigger="input changed delay:300ms from:find input[name=q], change from:find select, submit"
+  hx-push-url="true"
+>
+  <input
+    type="search"
+    name="q"
+    value="<%= query.q ?? '' %>"
+    placeholder="Search alias or URL…"
+    aria-label="Search"
+  />
+  <select name="sort" aria-label="Sort">
+    <% for (const [val, label] of [
+      ['-createdAt', 'Newest first'],
+      ['createdAt',  'Oldest first'],
+      ['-count',     'Most clicks'],
+      ['count',      'Fewest clicks'],
+      ['alias',      'Alias A→Z'],
+      ['-alias',     'Alias Z→A'],
+    ]) { %>
+      <option value="<%= val %>" <%= query.sort === val ? 'selected' : '' %>><%= label %></option>
+    <% } %>
+  </select>
+  <select name="pageSize" aria-label="Page size">
+    <% for (const size of [10, 20, 50, 100]) { %>
+      <option value="<%= size %>" <%= Number(query.pageSize) === size ? 'selected' : '' %>><%= size %>/page</option>
+    <% } %>
+  </select>
+</form>
+
+<div id="url-list">
+  <%- include('partials/_table.ejs', { query, items, total, page, pageSize, totalPages, prevHref, nextHref }) %>
+</div>

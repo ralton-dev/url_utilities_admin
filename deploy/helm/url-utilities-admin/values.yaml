@@ -1,0 +1,90 @@
+image:
+  repository: ghcr.io/ralton-dev/url-utilities-admin
+  tag: 'v0.1.0'
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+# - name: ghcr-regcred
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 4000
+
+ingress:
+  enabled: false
+  className: ''
+  annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: admin.short.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+    # - secretName: url-utilities-admin-tls
+    #   hosts:
+    #     - admin.short.example.com
+
+# Non-secret config wired via ConfigMap.
+# CORE_URL must be reachable from the pod — typically the in-cluster Service URL of the core
+# release, e.g. http://url-utilities-prod.url-utilities-prod.svc.cluster.local:80
+config:
+  CORE_URL: 'http://url-utilities:80'
+  LOG_LEVEL: 'info'
+
+# Secrets: choose ONE of the two modes.
+# Mode A (bootstrap): provide plaintext value here; chart renders a Secret.
+# Mode B (existing): set existingSecret to the name of a pre-materialized
+#   Secret (e.g. created by sealed-secrets). Must expose key CORE_API_KEY.
+secrets:
+  existingSecret: ''
+  CORE_API_KEY: ''
+
+resources:
+  requests:
+    cpu: 20m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+probes:
+  liveness:
+    path: /api/health
+    initialDelaySeconds: 10
+    periodSeconds: 20
+    timeoutSeconds: 3
+    failureThreshold: 3
+  readiness:
+    path: /api/ready
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ['ALL']
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
