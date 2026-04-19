@@ -1,5 +1,6 @@
 <% if (qrCode) { %>
   <img src="<%= qrCode %>" alt="QR code" class="qr" width="256" height="256" />
+  <a class="button small" href="<%= qrCode %>" download="<%= alias %>.png">Download PNG</a>
 <% } else { %>
   <p class="empty">No QR code yet. Regenerate to create one.</p>
 <% } %>

@@ -6,4 +6,5 @@ metadata:
     {{- include "url-utilities-admin.labels" . | nindent 4 }}
 data:
   CORE_URL: {{ .Values.config.CORE_URL | quote }}
+  CORE_PUBLIC_URL: {{ .Values.config.CORE_PUBLIC_URL | default "" | quote }}
   LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}

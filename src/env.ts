@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     CORE_URL: z.string().url(),
     CORE_API_KEY: z.string().min(1),
+    CORE_PUBLIC_URL: z.string().url().optional(),
     PORT: z.coerce.number().int().positive().default(4000),
     LOG_LEVEL: z
       .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace'])
@@ -13,3 +14,7 @@ export const env = createEnv({
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });
+
+/** User-facing base URL where `/r/:alias` resolves (e.g. `https://short.example.com`). */
+export const publicCoreBase = (): string =>
+  (env.CORE_PUBLIC_URL ?? env.CORE_URL).replace(/\/$/, '');

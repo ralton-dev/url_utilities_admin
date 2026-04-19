@@ -254,6 +254,23 @@ dl.meta a {
   word-break: break-all;
 }
 
+.short-link {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.short-link a {
+  word-break: break-all;
+}
+
+#qr {
+  margin-bottom: 10px;
+}
+#qr .button {
+  margin-top: 8px;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));

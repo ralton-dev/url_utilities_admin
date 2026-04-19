@@ -1,6 +1,7 @@
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { core, CoreError, type ListParams } from '../clients/core.js';
+import { publicCoreBase } from '../env.js';
 
 const aliasParam = z.string().regex(/^[0-9A-Za-z]{10}$/);
 
@@ -172,7 +173,11 @@ export const urlsRoute: FastifyPluginAsync = async (app) => {
       if (!item) return reply.callNotFound();
       return reply.view(
         'urls/detail',
-        { title: item.alias, item },
+        {
+          title: item.alias,
+          item,
+          shortLink: `${publicCoreBase()}/r/${item.alias}`,
+        },
         { layout: 'layout.ejs' }
       );
     } catch (err) {
@@ -253,7 +258,10 @@ export const urlsRoute: FastifyPluginAsync = async (app) => {
       if (!aliasR.success) return reply.code(404).send('Not found');
       try {
         const { qrCode } = await core.regenerateQr(aliasR.data);
-        return reply.view('urls/partials/_qr', { qrCode });
+        return reply.view('urls/partials/_qr', {
+          qrCode,
+          alias: aliasR.data,
+        });
       } catch (err) {
         if (err instanceof CoreError && err.status === 404) {
           return reply.code(404).send('Not found');

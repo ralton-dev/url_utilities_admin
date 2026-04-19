@@ -4,6 +4,20 @@
 </section>
 
 <dl class="meta">
+  <dt>Short link</dt>
+  <dd>
+    <div class="short-link">
+      <a href="<%= shortLink %>" target="_blank" rel="noopener"><%= shortLink %></a>
+      <button
+        class="button small"
+        type="button"
+        data-copy-url="<%= shortLink %>"
+        onclick="navigator.clipboard.writeText(this.dataset.copyUrl).then(() => { const t = this.textContent; this.textContent = 'Copied'; setTimeout(() => { this.textContent = t; }, 1500); })"
+      >
+        Copy
+      </button>
+    </div>
+  </dd>
   <dt>Destination</dt>
   <dd>
     <a href="<%= item.url %>" target="_blank" rel="noopener"><%= item.url %></a>
@@ -14,8 +28,6 @@
   <dd>
     <time datetime="<%= item.createdAt %>"><%= new Date(item.createdAt).toLocaleString() %></time>
   </dd>
-  <dt>Short path</dt>
-  <dd><code>/r/<%= item.alias %></code></dd>
 </dl>
 
 <section class="card">
@@ -26,7 +38,7 @@
 <section class="card">
   <h2>QR code</h2>
   <div id="qr">
-    <%- include('partials/_qr.ejs', { qrCode: item.qrCode }) %>
+    <%- include('partials/_qr.ejs', { qrCode: item.qrCode, alias: item.alias }) %>
   </div>
   <button
     class="button"

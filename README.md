@@ -38,12 +38,13 @@ Open `http://localhost:4000/urls`.
 
 ## Environment variables
 
-| Variable       | Description                                                                        |
-| -------------- | ---------------------------------------------------------------------------------- |
-| `CORE_URL`     | URL of the `url-utilities` core, no trailing slash (e.g. `http://localhost:3000`)  |
-| `CORE_API_KEY` | `x-api-key` value the admin UI sends to the core. Must match `API_KEY` on the core |
-| `PORT`         | Port this admin server listens on (default `4000`)                                 |
-| `LOG_LEVEL`    | `fatal` / `error` / `warn` / `info` / `debug` / `trace` (default `info`)           |
+| Variable          | Description                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CORE_URL`        | URL the UI uses to call the core (API calls). No trailing slash. In k8s: the in-cluster Service URL.                                        |
+| `CORE_API_KEY`    | `x-api-key` value the admin UI sends to the core. Must match `API_KEY` on the core.                                                         |
+| `CORE_PUBLIC_URL` | Optional. Browser-facing URL where short links resolve. Usually the core's public Ingress (same as core `APP_URL`). Defaults to `CORE_URL`. |
+| `PORT`            | Port this admin server listens on (default `4000`).                                                                                         |
+| `LOG_LEVEL`       | `fatal` / `error` / `warn` / `info` / `debug` / `trace` (default `info`).                                                                   |
 
 ## Auth model
 
@@ -97,7 +98,7 @@ make helm-install REPO=prod
 | `npm run dev`                   | tsx watch — hot-reload dev server      |
 | `npm run build`                 | tsc + copy views/ and public/ to dist/ |
 | `npm start`                     | Run the built server (`node dist/...`) |
-| `npm test`                      | Vitest (mocks the core with undici)    |
+| `npm test`                      | Vitest (testcontainers: real Postgres + core image)    |
 | `npm run lint`                  | ESLint                                 |
 | `npm run format` / `format:fix` | Prettier check / write                 |
 
