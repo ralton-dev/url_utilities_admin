@@ -58,24 +58,10 @@ export async function setup() {
     .withWaitStrategy(Wait.forHttp('/api/health', 3000).forStatusCode(200))
     .start();
 
-  const coreUrl = `http://${core.getHost()}:${core.getMappedPort(3000)}`;
-  process.env.CORE_URL = coreUrl;
+  process.env.CORE_URL = `http://${core.getHost()}:${core.getMappedPort(3000)}`;
   process.env.CORE_API_KEY = ADMIN_API_KEY;
   process.env.PORT = '4001';
   process.env.LOG_LEVEL = 'fatal';
-
-  // Probe whether the admin endpoints exist on this core version.
-  // 200/400 = route matched (endpoint present), 404 = not implemented yet.
-  try {
-    const res = await fetch(`${coreUrl}/api/admin/urls?pageSize=1`, {
-      headers: { 'x-api-key': ADMIN_API_KEY },
-    });
-    if (res.status === 200 || res.status === 400) {
-      process.env.ADMIN_ENDPOINTS_AVAILABLE = 'true';
-    }
-  } catch {
-    // Leave ADMIN_ENDPOINTS_AVAILABLE unset; gated tests will skip.
-  }
 }
 
 export async function teardown() {
