@@ -39,6 +39,13 @@ config:
   CORE_PUBLIC_URL: ''
   LOG_LEVEL: 'info'
 
+# Prometheus scrape annotations on the pod template. Works with Prometheus
+# setups that discover targets via pod annotations. For Prometheus Operator,
+# add a ServiceMonitor out-of-band — this chart doesn't ship one.
+metrics:
+  enabled: true
+  path: '/metrics'
+
 # Secrets: choose ONE of the two modes.
 # Mode A (bootstrap): provide plaintext value here; chart renders a Secret.
 # Mode B (existing): set existingSecret to the name of a pre-materialized
