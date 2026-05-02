@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 REGISTRY         ?= ghcr.io/ralton-dev
 IMAGE_NAME       ?= url-utilities-admin
-PLATFORMS        ?= linux/amd64
+PLATFORMS        ?= linux/amd64,linux/arm64
 CHART_DIR        := deploy/helm/url-utilities-admin
 CHART_VALUES     := $(CHART_DIR)/values.yaml
 

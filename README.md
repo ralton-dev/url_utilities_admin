@@ -65,7 +65,7 @@ docker run --rm -p 4000:4000 \
   ghcr.io/ralton-dev/url-utilities-admin:v0.1.0
 ```
 
-A `linux/amd64` image is published to GHCR on every `v*` tag:
+A multi-arch (`linux/amd64`, `linux/arm64`) image is published to GHCR on every `v*` tag:
 
 ```
 ghcr.io/ralton-dev/url-utilities-admin:v<version>
