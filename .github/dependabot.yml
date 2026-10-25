@@ -1,5 +1,5 @@
-# Weekly reviewed minor/patch PR groups; majors remain separate.
-# Security PR groups require enabled repository alerts and security updates. No automerge.
+# Renovate owns update PRs; routine Dependabot version PRs are disabled.
+# Keep GitHub vulnerability alerts enabled. Automatic security PRs are a separate repo setting.
 ---
 version: 2
 updates:
@@ -10,23 +10,15 @@ updates:
       day: monday
       time: '06:00'
       timezone: Europe/London
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 0
     groups:
-      vitest-family:
-        patterns:
-          - vitest
-          - '@vitest/*'
-        update-types:
-          - minor
-          - patch
       minor-and-patch:
         update-types:
           - minor
           - patch
-      security-updates:
-        applies-to: security-updates
-        patterns:
-          - '*'
+      major:
+        update-types:
+          - major
     labels:
       - dependencies
       - npm
@@ -42,13 +34,11 @@ updates:
         update-types:
           - minor
           - patch
-      security-updates:
-        applies-to: security-updates
-        patterns:
-          - '*'
+          - major
     labels:
       - dependencies
       - github-actions
+    open-pull-requests-limit: 0
   - package-ecosystem: docker
     directory: '/'
     schedule:
@@ -61,10 +51,8 @@ updates:
         update-types:
           - minor
           - patch
-      security-updates:
-        applies-to: security-updates
-        patterns:
-          - '*'
+          - major
     labels:
       - dependencies
       - docker
+    open-pull-requests-limit: 0
