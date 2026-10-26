@@ -17,6 +17,7 @@ RUN addgroup -g 10001 -S app && adduser -u 10001 -S app -G app
 
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
+RUN npm uninstall --global npm --ignore-scripts --no-audit --no-fund
 
 COPY --from=builder --chown=10001:10001 /app/dist ./dist
 
