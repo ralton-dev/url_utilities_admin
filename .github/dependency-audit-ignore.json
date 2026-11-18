@@ -1,7 +1,1 @@
-[
-  {
-    "ghsa": "GHSA-fc5q-39xc-vjpf",
-    "reason": "picomatch ReDoS (high). Since 2026-11-17 the advisory covers every picomatch release (<= 4.0.7) and has no patched version. Here picomatch is reached only through development tools (vitest, directly and via vite and tinyglobby; typescript-eslint > @typescript-eslint/typescript-estree > tinyglobby > fdir) matching the repo's own globs; it is not in the production tree that the image installs, and `npm audit --omit=dev` is clean. Accepted by Ben on 2026-11-18.",
-    "removeWhen": "A picomatch release that fixes GHSA-fc5q-39xc-vjpf is published. Remove this entry, and let Renovate update picomatch."
-  }
-]
+[]
